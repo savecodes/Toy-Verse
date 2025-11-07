@@ -61,19 +61,19 @@ const Banner = () => {
             {/* Text Content */}
             <div className="absolute inset-0 flex items-center">
               <div className="container mx-auto px-4 sm:px-6 md:px-8 lg:px-12">
-                <div className="max-w-xl lg:max-w-2xl">
-                  <p className="text-white text-sm sm:text-base md:text-lg font-semibold mb-2 md:mb-3 uppercase tracking-wide">
+                <div className="max-w-[85%] sm:max-w-xl lg:max-w-2xl">
+                  <p className="text-white text-xs sm:text-base md:text-lg font-semibold mb-2 md:mb-3 uppercase tracking-wide">
                     {slide.subtitle}
                   </p>
-                  <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-3 md:mb-4 lg:mb-6 leading-tight">
+                  <h2 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-3 md:mb-4 lg:mb-6 leading-tight">
                     {slide.title}
                   </h2>
-                  <p className="text-white text-sm sm:text-base md:text-lg lg:text-xl mb-4 md:mb-6 lg:mb-8 leading-relaxed">
+                  <p className="text-white text-xs sm:text-base md:text-lg lg:text-xl mb-4 md:mb-6 lg:mb-8 leading-relaxed">
                     {slide.description}
                   </p>
                   <button
                   onClick={() => navigate("/toys-gallery")}
-                  className="bg-white text-gray-900 px-6 sm:px-8 py-2.5 sm:py-3 md:py-4 rounded-full font-semibold text-sm sm:text-base md:text-lg hover:bg-gray-100 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105">
+                  className="bg-white text-gray-900 px-5 sm:px-8 py-2 sm:py-3 rounded-full font-semibold text-xs sm:text-base md:text-lg hover:bg-gray-100 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105">
                     {slide.buttonText}
                   </button>
                 </div>

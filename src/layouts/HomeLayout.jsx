@@ -6,6 +6,7 @@ import Banner from "../components/Heading/Banner";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { useState } from "react";
+import Login from "../pages/Login";
 
 const HomeLayout = () => {
   const [selectedCategory, setSelectedCategory] = useState("All");
@@ -13,13 +14,12 @@ const HomeLayout = () => {
   return (
     <>
       <ScrollToTop />
-      <div className="flex flex-col min-h-screen">
-        <header>
+      <div className="flex flex-col">
+        <header className="sticky top-0 z-50">
           <Navbar
             selectedCategory={selectedCategory}
             setSelectedCategory={setSelectedCategory}
           />
-          {/* <Banner/> */}
         </header>
         <main className="flex-1">
           <Outlet context={{ selectedCategory, setSelectedCategory }} />

@@ -24,7 +24,7 @@ const Navbar = ({ selectedCategory, setSelectedCategory }) => {
     }`;
 
   return (
-    <nav className="bg-base-200 p-4 shadow-sm">
+    <nav className="bg-linear-to-r from-blue-50 via-white to-blue-100 backdrop-blur-md shadow-sm border-b border-blue-100 p-4">
       <div className="w-11/12 mx-auto flex justify-between items-center">
         {/* Logo */}
         <Link to={"/"} className="font-bold text-2xl text-gray-800">
@@ -87,9 +87,12 @@ const Navbar = ({ selectedCategory, setSelectedCategory }) => {
           <button className="btn bg-[#24a0f3] text-white rounded-md px-6 hover:bg-[#1b86d1] flex items-center gap-2">
             <FaRegUserCircle /> Profile
           </button>
-          <button className="btn bg-[#24a0f3] text-white rounded-md px-6 hover:bg-[#1b86d1]">
+          <Link
+            to="/auth/login"
+            className="btn bg-[#24a0f3] text-white rounded-md px-6 hover:bg-[#1b86d1]"
+          >
             Login
-          </button>
+          </Link>
         </div>
 
         {/* Mobile Menu */}
@@ -147,9 +150,12 @@ const Navbar = ({ selectedCategory, setSelectedCategory }) => {
             <button className="btn bg-[#24a0f3] text-white rounded-md w-full flex items-center justify-center gap-2">
               <FaRegUserCircle /> Profile
             </button>
-            <button className="btn bg-[#24a0f3] text-white rounded-md w-full">
+            <Link
+              to="/auth/login"
+              className="btn bg-[#24a0f3] text-white rounded-md w-full"
+            >
               Login
-            </button>
+            </Link>
           </div>
         </div>
       )}
