@@ -35,9 +35,9 @@ const features = [
 
 const AboutPlayLocal = () => {
   return (
-    <section className="py-12 sm:py-16">
+    <section className="w-11/12 mx-auto py-12 sm:py-16">
       {/* Header */}
-      <div className="w-11/12 mx-auto text-center space-y-4 mb-12 sm:mb-16">
+      <div className="text-center space-y-4 mb-12 sm:mb-16">
         <p className="text-[#24a0f3] font-semibold uppercase tracking-wide">
           Play Local, Grow Local
         </p>
@@ -68,7 +68,9 @@ const AboutPlayLocal = () => {
               <h3 className="text-xl sm:text-2xl font-semibold text-gray-900 mb-2">
                 {feature.title}
               </h3>
-              <p className="text-gray-500 text-sm sm:text-base">{feature.description}</p>
+              <p className="text-gray-500 text-sm sm:text-base">
+                {feature.description}
+              </p>
             </div>
           </div>
         ))}
