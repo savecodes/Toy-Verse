@@ -1,11 +1,20 @@
 import React, { useState } from "react";
 import { FaRegUserCircle } from "react-icons/fa";
 import { BiMenuAltRight } from "react-icons/bi";
-import { Link, NavLink } from "react-router";
+import { Link, NavLink, useNavigate } from "react-router";
 
-const Navbar = () => {
+const Navbar = ({ selectedCategory, setSelectedCategory }) => {
+  const navigate = useNavigate();
   const [menuOpen, setMenuOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
+
+  const categories = [
+    "All",
+    "Building Blocks",
+    "Toy Cars",
+    "Arts & Crafts",
+    "Dolls & Action Figures",
+  ];
 
   const navLinkClass = ({ isActive }) =>
     `px-3 py-2 rounded-md font-medium transition-all duration-200 ${
@@ -36,23 +45,29 @@ const Navbar = () => {
           >
             <button
               className={`px-3 py-2 rounded-md font-medium transition-all duration-200 ${
-                dropdownOpen ? "text-[#24a0f3]" : "text-gray-700 hover:text-[#24a0f3]"
+                dropdownOpen
+                  ? "text-[#24a0f3]"
+                  : "text-gray-700 hover:text-[#24a0f3]"
               }`}
             >
               Category
             </button>
             {dropdownOpen && (
-              <div className="absolute top-10 left-0 bg-white shadow-md rounded-md z-50 w-48">
+              <div className="absolute top-10 left-0 bg-white shadow-md rounded-md z-50 w-52">
                 <ul className="flex flex-col text-gray-700">
-                  {[
-                    "Building Blocks",
-                    "Toy Cars",
-                    "Arts & Crafts",
-                    "Dolls & Action Figures",
-                  ].map((item) => (
+                  {categories.map((item) => (
                     <li
                       key={item}
-                      className="px-4 py-2 hover:bg-[#24a0f3] hover:text-white cursor-pointer"
+                      onClick={() => {
+                        setSelectedCategory(item);
+                        navigate("/toys-gallery");
+                        setDropdownOpen(false);
+                      }}
+                      className={`px-4 py-2 cursor-pointer transition-all ${
+                        selectedCategory === item
+                          ? "bg-[#24a0f3] text-white"
+                          : "hover:bg-[#24a0f3] hover:text-white"
+                      }`}
                     >
                       {item}
                     </li>
@@ -67,7 +82,7 @@ const Navbar = () => {
           </NavLink>
         </div>
 
-        {/* Right Side Buttons */}
+        {/* Right Side */}
         <div className="hidden md:flex gap-3">
           <button className="btn bg-[#24a0f3] text-white rounded-md px-6 hover:bg-[#1b86d1] flex items-center gap-2">
             <FaRegUserCircle /> Profile
@@ -77,7 +92,7 @@ const Navbar = () => {
           </button>
         </div>
 
-        {/* Hamburger for Mobile */}
+        {/* Mobile Menu */}
         <button
           onClick={() => setMenuOpen(!menuOpen)}
           className="md:hidden text-3xl text-[#24a0f3]"
@@ -86,12 +101,13 @@ const Navbar = () => {
         </button>
       </div>
 
-      {/* Mobile Dropdown Menu */}
+      {/* Mobile Dropdown */}
       {menuOpen && (
         <div className="md:hidden mt-4 bg-white rounded-lg shadow-md p-4 space-y-3">
           <NavLink to="/" className={navLinkClass}>
             Home
           </NavLink>
+
           <div>
             <button
               onClick={() => setDropdownOpen(!dropdownOpen)}
@@ -101,15 +117,20 @@ const Navbar = () => {
             </button>
             {dropdownOpen && (
               <ul className="ml-4 mt-2 space-y-2">
-                {[
-                  "Building Blocks",
-                  "Toy Cars",
-                  "Arts & Crafts",
-                  "Dolls & Action Figures",
-                ].map((item) => (
+                {categories.map((item) => (
                   <li
                     key={item}
-                    className="px-3 py-1 text-gray-600 hover:text-[#24a0f3]"
+                    onClick={() => {
+                      setSelectedCategory(item);
+                      navigate("/toys-gallery");
+                      setDropdownOpen(false);
+                      setMenuOpen(false);
+                    }}
+                    className={`px-3 py-1 cursor-pointer transition-all ${
+                      selectedCategory === item
+                        ? "text-[#24a0f3] font-semibold"
+                        : "text-gray-600 hover:text-[#24a0f3]"
+                    }`}
                   >
                     {item}
                   </li>
