@@ -1,11 +1,35 @@
 import { Lock, Mail, User } from "lucide-react";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { FaGoogle, FaGithub, FaEye } from "react-icons/fa";
 import { IoEyeOff } from "react-icons/io5";
 import { Link } from "react-router";
+import { AuthContext } from "../provider/AuthContext";
 
 const Register = () => {
   const [show, setShow] = useState(false);
+  const { createUser, setUser } = useContext(AuthContext);
+
+  const handleRegister = (e) => {
+    e.preventDefault();
+    const name = e.target.name.value;
+    const image = e.target.image.value;
+    const email = e.target.email.value;
+    const password = e.target.password.value;
+
+    console.log("registered", { name, image, email, password });
+
+    createUser(email, password)
+      .then((result) => {
+        const user = result.user;
+        setUser(user);
+        console.log(user);
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(errorCode, errorMessage);
+      });
+  };
 
   return (
     <div className="flex items-center justify-center py-10 px-6">
@@ -43,7 +67,10 @@ const Register = () => {
           </div>
 
           {/* Form */}
-          <form className="grid grid-cols-1 md:grid-cols-2 gap-5">
+          <form
+            onSubmit={handleRegister}
+            className="grid grid-cols-1 md:grid-cols-2 gap-5"
+          >
             {/* Name Field */}
             <div>
               <label className="block mb-2 text-sm font-medium text-gray-700">
@@ -51,6 +78,7 @@ const Register = () => {
               </label>
               <input
                 type="text"
+                name="name"
                 placeholder="Enter your name"
                 className="w-full border border-gray-300 rounded-lg px-4 py-3 text-sm outline-none text-gray-800 placeholder-gray-400 focus:ring-2 focus:ring-blue-400 focus:border-transparent"
               />
@@ -63,6 +91,7 @@ const Register = () => {
               </label>
               <input
                 type="text"
+                name="image"
                 placeholder="Enter your photo URL"
                 className="w-full border border-gray-300 rounded-lg px-4 py-3 text-sm outline-none text-gray-800 placeholder-gray-400 focus:ring-2 focus:ring-blue-400 focus:border-transparent"
               />
@@ -77,6 +106,7 @@ const Register = () => {
                 <Mail className="text-gray-400 mr-2" size={18} />
                 <input
                   type="email"
+                  name="email"
                   placeholder="Enter your email"
                   className="w-full bg-transparent outline-none text-sm text-gray-800 placeholder-gray-400"
                   required
@@ -93,6 +123,7 @@ const Register = () => {
                 <Lock className="text-gray-400 mr-2" size={18} />
                 <input
                   type={show ? "text" : "password"}
+                  name="password"
                   placeholder="Enter your password"
                   className="w-full bg-transparent outline-none text-sm text-gray-800 placeholder-gray-400"
                   required

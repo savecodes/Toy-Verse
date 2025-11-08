@@ -34,7 +34,7 @@ const Footer = () => {
             </li>
             <li>
               <Link
-                to="/my-toys"
+                to="/toys-gallery"
                 className="hover:text-[#24a0f3] transition duration-200"
               >
                 My Toys

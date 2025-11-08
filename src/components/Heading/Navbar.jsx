@@ -1,12 +1,19 @@
-import React, { useState } from "react";
+import React, { use, useState } from "react";
 import { FaRegUserCircle } from "react-icons/fa";
 import { BiMenuAltRight } from "react-icons/bi";
 import { Link, NavLink, useNavigate } from "react-router";
+import { AuthContext } from "../../provider/AuthContext";
+import { CiLogin, CiLogout } from "react-icons/ci";
 
 const Navbar = ({ selectedCategory, setSelectedCategory }) => {
   const navigate = useNavigate();
   const [menuOpen, setMenuOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
+
+  const { user } = use(AuthContext);
+  const handleLogOut = () => {
+    console.log("User trying to logout");
+  }
 
   const categories = [
     "All",
@@ -87,12 +94,23 @@ const Navbar = ({ selectedCategory, setSelectedCategory }) => {
           <button className="btn bg-[#24a0f3] text-white rounded-md px-6 hover:bg-[#1b86d1] flex items-center gap-2">
             <FaRegUserCircle /> Profile
           </button>
-          <Link
-            to="/auth/login"
-            className="btn bg-[#24a0f3] text-white rounded-md px-6 hover:bg-[#1b86d1]"
-          >
-            Login
-          </Link>
+
+          {user ? (
+            <Link
+            onClick={handleLogOut}
+            className="btn bg-[#24a0f3] text-white rounded-md px-6 hover:bg-[#1b86d1]">
+              <CiLogout className="" />
+              Logout
+            </Link>
+          ) : (
+            <Link
+              to="/auth/login"
+              className="btn bg-[#24a0f3] text-white rounded-md px-6 hover:bg-[#1b86d1]"
+            >
+              <CiLogin />
+              Login
+            </Link>
+          )}
         </div>
 
         {/* Mobile Menu */}
@@ -150,12 +168,22 @@ const Navbar = ({ selectedCategory, setSelectedCategory }) => {
             <button className="btn bg-[#24a0f3] text-white rounded-md w-full flex items-center justify-center gap-2">
               <FaRegUserCircle /> Profile
             </button>
-            <Link
-              to="/auth/login"
-              className="btn bg-[#24a0f3] text-white rounded-md w-full"
-            >
-              Login
-            </Link>
+            {user ? (
+              <Link
+              onClick={handleLogOut}
+              className="btn bg-[#24a0f3] text-white rounded-md px-6 hover:bg-[#1b86d1]">
+                <CiLogout className="" />
+                Logout
+              </Link>
+            ) : (
+              <Link
+                to="/auth/login"
+                className="btn bg-[#24a0f3] text-white rounded-md px-6 hover:bg-[#1b86d1]"
+              >
+                <CiLogin />
+                Login
+              </Link>
+            )}
           </div>
         </div>
       )}

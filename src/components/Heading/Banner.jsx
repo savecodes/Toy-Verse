@@ -44,7 +44,7 @@ const Banner = () => {
 
 
   return (
-    <div className="w-full">
+    <div className="w-full overflow-hidden">
       <Slider {...settings}>
         {slides.map((slide, idx) => (
           <div key={idx} className="relative">
@@ -52,7 +52,7 @@ const Banner = () => {
             <img
               src={slide.image}
               alt={`Slider ${idx + 1}`}
-              className="w-full h-[300px] sm:h-[400px] md:h-[500px] lg:h-[600px] object-cover rounded-lg"
+              className="w-full h-[300px] sm:h-[400px] md:h-[500px] lg:h-[600px] object-cover rounded-b-lg"
             />
             
             {/* Overlay Gradient */}
