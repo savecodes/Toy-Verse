@@ -9,6 +9,7 @@ import {
   FaEnvelope,
   FaPaperPlane,
 } from "react-icons/fa";
+import Swal from "sweetalert2";
 
 const ToyDetails = () => {
   const { id } = useParams();
@@ -37,9 +38,13 @@ const ToyDetails = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    alert(
-      `Thank you, ${formData.name}! We'll contact you soon about trying the ${toyName}.`
-    );
+    Swal.fire({
+      title: "Thank You!",
+      text: `Hey ${formData.name}, we'll contact you soon about trying the ${toyName}.`,
+      icon: "success",
+      confirmButtonText: "Okay",
+      confirmButtonColor: "#24a0f3",
+    });
     setFormData({ name: "", email: "" });
   };
 
@@ -136,13 +141,13 @@ const ToyDetails = () => {
               <FaEnvelope className="text-gray-400 mr-2" />
               <input
                 type="email"
+                required
                 placeholder="Enter your email"
                 className="w-full bg-transparent outline-none"
                 value={formData.email}
                 onChange={(e) =>
                   setFormData({ ...formData, email: e.target.value })
                 }
-                required
               />
             </div>
           </div>

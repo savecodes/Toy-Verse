@@ -2,12 +2,22 @@ import { Lock, Mail, User } from "lucide-react";
 import { useContext, useState } from "react";
 import { FaGoogle, FaGithub, FaEye } from "react-icons/fa";
 import { IoEyeOff } from "react-icons/io5";
-import { Link } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import { AuthContext } from "../provider/AuthContext";
+import Swal from "sweetalert2";
 
 const Register = () => {
   const [show, setShow] = useState(false);
-  const { createUser, setUser } = useContext(AuthContext);
+  const location = useLocation();
+  const navigate = useNavigate();
+  const {
+    createUser,
+    setUser,
+    updateUserProfile,
+    sendEmailVerify,
+    googleRegister,
+    githubRegister,
+  } = useContext(AuthContext);
 
   const handleRegister = (e) => {
     e.preventDefault();
@@ -21,13 +31,83 @@ const Register = () => {
     createUser(email, password)
       .then((result) => {
         const user = result.user;
-        setUser(user);
-        console.log(user);
+        updateUserProfile(name, image).then(() => {
+          console.log(user);
+          sendEmailVerify().then((res) => {
+            console.log(res);
+            setUser(user);
+            navigate(`${location.state ? location.state : "/"}`);
+            console.log(user);
+            Swal.fire({
+              title: "Register Successful!",
+              text: "Welcome",
+              icon: "success",
+              confirmButtonText: "Okay",
+            });
+          });
+        });
       })
       .catch((error) => {
-        const errorCode = error.code;
+        // const errorCode = error.code;
         const errorMessage = error.message;
-        console.log(errorCode, errorMessage);
+        // console.log(errorCode, errorMessage);
+        Swal.fire({
+          title: "Login Failed!",
+          text:
+            errorMessage ||
+            "Something went wrong with Google login. Please try again.",
+          icon: "error",
+          confirmButtonText: "Try Again",
+        });
+      });
+  };
+
+  const handleGoogleRegister = () => {
+    googleRegister()
+      .then((res) => {
+        setUser(res.user);
+        navigate(`${location.state ? location.state : "/"}`);
+        Swal.fire({
+          title: "Login Successful!",
+          text: "Welcome back ",
+          icon: "success",
+          confirmButtonText: "Okay",
+        });
+      })
+      .catch((error) => {
+        Swal.fire({
+          title: "Login Failed!",
+          text:
+            error.message ||
+            "Something went wrong with Google login. Please try again.",
+          icon: "error",
+          confirmButtonText: "Try Again",
+        });
+      });
+  };
+
+  const handleGithubRegister = () => {
+    githubRegister()
+      .then((res) => {
+        setUser(res.user);
+        navigate(`${location.state ? location.state : "/"}`);
+
+        Swal.fire({
+          title: "Login Successful!",
+          text: "Welcome back",
+          icon: "success",
+          confirmButtonText: "Okay",
+        });
+      })
+      .catch((error) => {
+        Swal.fire({
+          title: "Login Failed!",
+          text:
+            error.message ||
+            "Something went wrong with Google login. Please try again.",
+          icon: "error",
+          confirmButtonText: "Try Again",
+        });
       });
   };
 
@@ -48,12 +128,18 @@ const Register = () => {
 
           {/* Social Buttons */}
           <div className="space-y-3 mb-6">
-            <button className="flex items-center justify-center gap-3 w-full border border-gray-300 py-3 rounded-lg text-base text-gray-700 hover:bg-gray-50 transition">
+            <button
+              onClick={handleGoogleRegister}
+              className="flex items-center justify-center gap-3 w-full border border-gray-300 py-3 rounded-lg text-base text-gray-700 hover:bg-gray-50 transition"
+            >
               <FaGoogle className="text-red-500 text-lg" />
               Continue with Google
             </button>
 
-            <button className="flex items-center justify-center gap-3 w-full border border-gray-300 py-3 rounded-lg text-base text-gray-700 hover:bg-gray-50 transition">
+            <button
+              onClick={handleGithubRegister}
+              className="flex items-center justify-center gap-3 w-full border border-gray-300 py-3 rounded-lg text-base text-gray-700 hover:bg-gray-50 transition"
+            >
               <FaGithub className="text-gray-800 text-lg" />
               Continue with GitHub
             </button>

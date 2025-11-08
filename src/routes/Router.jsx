@@ -9,6 +9,8 @@ import Login from "../pages/Login";
 import AuthLayout from "../layouts/AuthLayout";
 import Register from "../pages/Register";
 import ForgotPassword from "../pages/ForgotPassword";
+import PrivateRoute from "../provider/PrivateRoute";
+import Profile from "../pages/Profile";
 
 export const router = createBrowserRouter([
   {
@@ -25,11 +27,19 @@ export const router = createBrowserRouter([
       },
       {
         path: "/toy-details/:id",
-        element: <ToyDetails />,
+        element: (
+          <PrivateRoute>
+            <ToyDetails />
+          </PrivateRoute>
+        ),
       },
       {
         path: "/about",
         element: <AboutPage />,
+      },
+      {
+        path: "/profile",
+        element: <Profile />,
       },
       {
         path: "/auth",

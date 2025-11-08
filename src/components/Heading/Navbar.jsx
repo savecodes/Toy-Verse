@@ -4,16 +4,37 @@ import { BiMenuAltRight } from "react-icons/bi";
 import { Link, NavLink, useNavigate } from "react-router";
 import { AuthContext } from "../../provider/AuthContext";
 import { CiLogin, CiLogout } from "react-icons/ci";
+import Swal from "sweetalert2";
 
 const Navbar = ({ selectedCategory, setSelectedCategory }) => {
   const navigate = useNavigate();
   const [menuOpen, setMenuOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
-  const { user } = use(AuthContext);
+  const { user, lotOut } = use(AuthContext);
   const handleLogOut = () => {
-    console.log("User trying to logout");
-  }
+    // console.log("User trying to logout");
+
+    lotOut()
+      .then(() => {
+        Swal.fire({
+          title: "Logout Successful!",
+          text: "See you again soon",
+          icon: "success",
+          confirmButtonText: "Okay",
+        });
+      })
+      .catch((error) => {
+        Swal.fire({
+          title: "Logout Failed!",
+          text:
+            error.message ||
+            "Something went wrong while logging out. Please try again.",
+          icon: "error",
+          confirmButtonText: "Try Again",
+        });
+      });
+  };
 
   const categories = [
     "All",
@@ -91,14 +112,15 @@ const Navbar = ({ selectedCategory, setSelectedCategory }) => {
 
         {/* Right Side */}
         <div className="hidden md:flex gap-3">
-          <button className="btn bg-[#24a0f3] text-white rounded-md px-6 hover:bg-[#1b86d1] flex items-center gap-2">
+          <Link to={"/profile"} className="btn bg-[#24a0f3] text-white rounded-md px-6 hover:bg-[#1b86d1] flex items-center gap-2">
             <FaRegUserCircle /> Profile
-          </button>
+          </Link>
 
           {user ? (
             <Link
-            onClick={handleLogOut}
-            className="btn bg-[#24a0f3] text-white rounded-md px-6 hover:bg-[#1b86d1]">
+              onClick={handleLogOut}
+              className="btn bg-[#24a0f3] text-white rounded-md px-6 hover:bg-[#1b86d1]"
+            >
               <CiLogout className="" />
               Logout
             </Link>
@@ -165,13 +187,14 @@ const Navbar = ({ selectedCategory, setSelectedCategory }) => {
           </NavLink>
 
           <div className="flex flex-col gap-2 mt-3">
-            <button className="btn bg-[#24a0f3] text-white rounded-md w-full flex items-center justify-center gap-2">
+            <Link to={"/profile"} className="btn bg-[#24a0f3] text-white rounded-md w-full flex items-center justify-center gap-2">
               <FaRegUserCircle /> Profile
-            </button>
+            </Link>
             {user ? (
               <Link
-              onClick={handleLogOut}
-              className="btn bg-[#24a0f3] text-white rounded-md px-6 hover:bg-[#1b86d1]">
+                onClick={handleLogOut}
+                className="btn bg-[#24a0f3] text-white rounded-md px-6 hover:bg-[#1b86d1]"
+              >
                 <CiLogout className="" />
                 Logout
               </Link>

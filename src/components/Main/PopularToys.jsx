@@ -9,7 +9,7 @@ const PopularToys = () => {
 
   const sortedToys = [...toys].sort((a, b) => b.rating - a.rating);
   const topToys = sortedToys.slice(0, 6);
-    console.log(topToys);
+    // console.log(topToys);
   return (
     <div className="w-11/12 mx-auto py-16">
       {/* Text Section */}

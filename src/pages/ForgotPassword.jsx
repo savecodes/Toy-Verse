@@ -1,9 +1,27 @@
 import { Mail } from "lucide-react";
 import { FiUsers } from "react-icons/fi";
 import { Link } from "react-router";
+import useToysData from "../hooks/useToysData";
+import LoadingSpinner from "../components/LoadingSpinner";
+import { useContext } from "react";
+import { AuthContext } from "../provider/AuthContext";
 
 const ForgotPassword = () => {
+  const { loading } = useToysData();
+  const { resetPassword } = useContext(AuthContext);
 
+  if (loading) {
+    return <LoadingSpinner />;
+  }
+
+  const handleForgotPassword = (e) => {
+    e.preventDefault();
+    const email = e.target.email.value;
+    console.log("email", email);
+    resetPassword(email).then(() => {
+      alert("Email verification sent!");
+    });
+  };
   return (
     <div className="flex items-center justify-center bg-linear-to-b from-blue-50 to-white py-10 px-6">
       <div className="w-full max-w-3xl">
@@ -24,8 +42,7 @@ const ForgotPassword = () => {
           </div>
 
           {/* Form Section */}
-          <form
-          className="space-y-6">
+          <form onSubmit={handleForgotPassword} className="space-y-6">
             {/* Email Field */}
             <div>
               <label className="block mb-2 text-sm font-medium text-gray-700">
@@ -35,6 +52,7 @@ const ForgotPassword = () => {
                 <Mail className="text-gray-400 mr-3" size={20} />
                 <input
                   type="email"
+                  name="email"
                   placeholder="Enter your email"
                   className="w-full bg-transparent outline-none text-gray-800 placeholder-gray-400"
                   required
