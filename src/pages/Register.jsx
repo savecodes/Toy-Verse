@@ -230,18 +230,18 @@ const Register = () => {
             {/* Terms & Register Button */}
             <div className="md:col-span-2 space-y-4 mt-2">
               <div className="flex items-start gap-2">
-                <input
-                  type="checkbox"
-                  id="terms"
-                  required
-                  className="w-4 h-4 mt-0.5 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
-                />
-                <label htmlFor="terms" className="text-xs text-gray-600">
-                  I agree to the{" "}
-                  <a href="#" className="text-blue-500 hover:underline">
-                    Terms & Conditions
-                  </a>
-                </label>
+                  <input
+                    type="checkbox"
+                    id="terms"
+                    required
+                    className="w-4 h-4 mt-0.5 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+                  />
+                  <label htmlFor="terms" className="text-xs text-gray-600">
+                    I agree to the{" "}
+                    <a href="#" className="text-blue-500 hover:underline">
+                      Terms & Conditions
+                    </a>
+                  </label>
               </div>
 
               <button

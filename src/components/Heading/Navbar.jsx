@@ -1,4 +1,4 @@
-import React, { use, useState } from "react";
+import React, { useContext, useState } from "react";
 import { FaRegUserCircle } from "react-icons/fa";
 import { BiMenuAltRight } from "react-icons/bi";
 import { Link, NavLink, useNavigate } from "react-router";
@@ -11,7 +11,7 @@ const Navbar = ({ selectedCategory, setSelectedCategory }) => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
-  const { user, lotOut } = use(AuthContext);
+  const { user, lotOut } = useContext(AuthContext);
   const handleLogOut = () => {
     // console.log("User trying to logout");
 
@@ -112,16 +112,21 @@ const Navbar = ({ selectedCategory, setSelectedCategory }) => {
 
         {/* Right Side */}
         <div className="hidden md:flex gap-3">
-          <Link to={"/profile"} className="btn bg-[#24a0f3] text-white rounded-md px-6 hover:bg-[#1b86d1] flex items-center gap-2">
-            <FaRegUserCircle /> Profile
-          </Link>
+          {user && (
+            <Link
+              to="/profile"
+              className="px-4 py-2 rounded-md bg-[#24a0f3] text-white hover:bg-[#1b86d1]"
+            >
+              Profile
+            </Link>
+          )}
 
           {user ? (
             <Link
               onClick={handleLogOut}
               className="btn bg-[#24a0f3] text-white rounded-md px-6 hover:bg-[#1b86d1]"
             >
-              <CiLogout className="" />
+              <CiLogout className="text-white/80" />
               Logout
             </Link>
           ) : (
@@ -129,7 +134,7 @@ const Navbar = ({ selectedCategory, setSelectedCategory }) => {
               to="/auth/login"
               className="btn bg-[#24a0f3] text-white rounded-md px-6 hover:bg-[#1b86d1]"
             >
-              <CiLogin />
+              <CiLogin className="text-white/80" />
               Login
             </Link>
           )}
@@ -187,15 +192,20 @@ const Navbar = ({ selectedCategory, setSelectedCategory }) => {
           </NavLink>
 
           <div className="flex flex-col gap-2 mt-3">
-            <Link to={"/profile"} className="btn bg-[#24a0f3] text-white rounded-md w-full flex items-center justify-center gap-2">
-              <FaRegUserCircle /> Profile
-            </Link>
+            {user && (
+              <Link
+                to="/profile"
+                className="px-4 py-2 rounded-md bg-[#24a0f3] text-white hover:bg-[#1b86d1]"
+              >
+                Profile
+              </Link>
+            )}
             {user ? (
               <Link
                 onClick={handleLogOut}
                 className="btn bg-[#24a0f3] text-white rounded-md px-6 hover:bg-[#1b86d1]"
               >
-                <CiLogout className="" />
+                <CiLogout className="text-white/80" />
                 Logout
               </Link>
             ) : (
@@ -203,7 +213,7 @@ const Navbar = ({ selectedCategory, setSelectedCategory }) => {
                 to="/auth/login"
                 className="btn bg-[#24a0f3] text-white rounded-md px-6 hover:bg-[#1b86d1]"
               >
-                <CiLogin />
+                <CiLogin className="text-white/80" />
                 Login
               </Link>
             )}

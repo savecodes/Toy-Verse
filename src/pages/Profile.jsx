@@ -4,7 +4,6 @@ import { AuthContext } from "../provider/AuthContext";
 const Profile = () => {
   const { user } = useContext(AuthContext);
 
-
   return (
     <section className="flex items-center justify-center py-16 bg-linear-to-b from-blue-50 to-white min-h-[80vh]">
       <div className="bg-white border border-blue-100 rounded-2xl shadow-lg p-8 w-full max-w-md text-center">
@@ -18,7 +17,9 @@ const Profile = () => {
         </div>
 
         {/* User Info */}
-        <h2 className="text-2xl font-semibold text-gray-800">{user?.displayName}</h2>
+        <h2 className="text-2xl font-semibold text-gray-800">
+          {user?.displayName}
+        </h2>
         <p className="text-gray-600 mt-1">{user?.email}</p>
 
         {/* Divider */}
