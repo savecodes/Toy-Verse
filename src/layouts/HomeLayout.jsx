@@ -7,9 +7,15 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { useState } from "react";
 import Login from "../pages/Login";
+import useToysData from "../hooks/useToysData";
+import LoadingSpinner from "../components/LoadingSpinner";
 
 const HomeLayout = () => {
   const [selectedCategory, setSelectedCategory] = useState("All");
+  const { loading } = useToysData();
+  if (loading) {
+    return <LoadingSpinner />;
+  }
 
   return (
     <>

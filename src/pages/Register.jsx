@@ -26,24 +26,18 @@ const Register = () => {
     const email = e.target.email.value;
     const password = e.target.password.value;
 
-    console.log("registered", { name, image, email, password });
-
     createUser(email, password)
       .then((result) => {
         const user = result.user;
         updateUserProfile(name, image).then(() => {
-          console.log(user);
-          sendEmailVerify().then((res) => {
-            console.log(res);
-            setUser(user);
-            navigate(`${location.state ? location.state : "/"}`);
-            console.log(user);
+          setUser(user);
+          sendEmailVerify().then(() => {
             Swal.fire({
-              title: "Register Successful!",
-              text: "Welcome",
-              icon: "success",
-              confirmButtonText: "Okay",
+              title: "Verification Email Sent",
+              text: `A verification email has been sent to ${email}.`,
+              icon: "info",
             });
+            navigate(`${location.state ? location.state : "/auth/login"}`);
           });
         });
       })
@@ -230,18 +224,18 @@ const Register = () => {
             {/* Terms & Register Button */}
             <div className="md:col-span-2 space-y-4 mt-2">
               <div className="flex items-start gap-2">
-                  <input
-                    type="checkbox"
-                    id="terms"
-                    required
-                    className="w-4 h-4 mt-0.5 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
-                  />
-                  <label htmlFor="terms" className="text-xs text-gray-600">
-                    I agree to the{" "}
-                    <a href="#" className="text-blue-500 hover:underline">
-                      Terms & Conditions
-                    </a>
-                  </label>
+                <input
+                  type="checkbox"
+                  id="terms"
+                  required
+                  className="w-4 h-4 mt-0.5 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+                />
+                <label htmlFor="terms" className="text-xs text-gray-600">
+                  I agree to the{" "}
+                  <a href="#" className="text-blue-500 hover:underline">
+                    Terms & Conditions
+                  </a>
+                </label>
               </div>
 
               <button

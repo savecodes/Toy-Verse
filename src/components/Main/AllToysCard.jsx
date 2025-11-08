@@ -1,6 +1,7 @@
 import React from "react";
 import { FaBoxOpen, FaStar, FaTag } from "react-icons/fa";
 import { useNavigate } from "react-router";
+import LoadingSpinner from "../LoadingSpinner";
 
 const AllToysCard = ({ toy }) => {
   const { pictureURL, subCategory, toyName, price, rating, availableQuantity } =

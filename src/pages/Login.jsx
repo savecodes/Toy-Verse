@@ -9,7 +9,8 @@ import Swal from "sweetalert2";
 
 const Login = () => {
   const [show, setShow] = useState(false);
-  const { setUser, logIn, googleRegister, githubRegister } = useContext(AuthContext);
+  const { setUser, logIn, googleRegister, githubRegister } =
+    useContext(AuthContext);
 
   const location = useLocation();
   const navigate = useNavigate();
@@ -21,15 +22,37 @@ const Login = () => {
 
     logIn(email, password)
       .then((userCredential) => {
-        // Signed in
         const user = userCredential.user;
+        if (!user.emailVerified) {
+          Swal.fire({
+            title: "Email not verified",
+            text: "Please verify your email before logging in.",
+            icon: "warning",
+            confirmButtonText: "Okay",
+          });
+          return; // Stop further execution
+        }
+        setUser(user);
         navigate(`${location.state ? location.state : "/"}`);
-        console.log(user);
+        Swal.fire({
+          title: "Login Successful!",
+          text: "Welcome back ",
+          icon: "success",
+          confirmButtonText: "Okay",
+        });
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
         console.log(errorCode, errorMessage);
+        Swal.fire({
+          title: "Login Failed!",
+          text:
+            errorMessage ||
+            "Something went wrong with Google login. Please try again.",
+          icon: "error",
+          confirmButtonText: "Try Again",
+        });
       });
   };
 

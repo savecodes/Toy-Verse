@@ -5,6 +5,8 @@ import useToysData from "../hooks/useToysData";
 import LoadingSpinner from "../components/LoadingSpinner";
 import { useContext } from "react";
 import { AuthContext } from "../provider/AuthContext";
+import { toast } from "react-toastify";
+import Swal from "sweetalert2";
 
 const ForgotPassword = () => {
   const { loading } = useToysData();
@@ -17,10 +19,20 @@ const ForgotPassword = () => {
   const handleForgotPassword = (e) => {
     e.preventDefault();
     const email = e.target.email.value;
-    console.log("email", email);
-    resetPassword(email).then(() => {
-      alert("Email verification sent!");
-    });
+
+    resetPassword(email)
+      .then(() => {
+        Swal.fire({
+          title: "Email Sent!",
+          text: "Check your inbox for password reset instructions.",
+          icon: "success",
+          confirmButtonText: "Okay",
+        });
+      })
+      .catch((error) => {
+        console.error(error);
+        toast.error(error.message);
+      });
   };
   return (
     <div className="flex items-center justify-center bg-linear-to-b from-blue-50 to-white py-10 px-6">

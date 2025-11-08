@@ -126,7 +126,7 @@ const Navbar = ({ selectedCategory, setSelectedCategory }) => {
               onClick={handleLogOut}
               className="btn bg-[#24a0f3] text-white rounded-md px-6 hover:bg-[#1b86d1]"
             >
-              <CiLogout className="text-white/80" />
+              <CiLogout className="text-white w-5 h-5" />
               Logout
             </Link>
           ) : (
@@ -134,7 +134,7 @@ const Navbar = ({ selectedCategory, setSelectedCategory }) => {
               to="/auth/login"
               className="btn bg-[#24a0f3] text-white rounded-md px-6 hover:bg-[#1b86d1]"
             >
-              <CiLogin className="text-white/80" />
+              <CiLogin className="text-white w-5 h-5" />
               Login
             </Link>
           )}
@@ -205,7 +205,7 @@ const Navbar = ({ selectedCategory, setSelectedCategory }) => {
                 onClick={handleLogOut}
                 className="btn bg-[#24a0f3] text-white rounded-md px-6 hover:bg-[#1b86d1]"
               >
-                <CiLogout className="text-white/80" />
+                <CiLogout className="text-white w-5 h-5" />
                 Logout
               </Link>
             ) : (
@@ -213,7 +213,7 @@ const Navbar = ({ selectedCategory, setSelectedCategory }) => {
                 to="/auth/login"
                 className="btn bg-[#24a0f3] text-white rounded-md px-6 hover:bg-[#1b86d1]"
               >
-                <CiLogin className="text-white/80" />
+                <CiLogin className="text-white w-5 h-5" />
                 Login
               </Link>
             )}
